@@ -7,12 +7,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class ProductsController {
   private final ProductsService service;
 
@@ -28,6 +30,7 @@ public class ProductsController {
 
   @GetMapping("/products/{productId}") // endpoint get de path dinamico
   public ResponseEntity<Product> getProduct(@PathVariable String productId) {
+    log.info("Request received for product {}", productId);
     Product product = service.getProduct(productId);
     if (product != null) {
       return ResponseEntity.ok(product);
